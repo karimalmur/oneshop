@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: 'OneShop, Product Development Agency',
+    title: "OneShop, Product Development Agency",
     description:
-      'This repo contains an example business website that is built with Gatsby, and Netlify CMS.It follows the JAMstack architecture by using Git as a single source of truth, and Netlify for continuous deployment, and CDN distribution.',
+        "Software development solutions. From developer tools to quality fullstack web & mobile apps.",
   },
   plugins: [
     'gatsby-plugin-react-helmet',
@@ -72,6 +72,6 @@ module.exports = {
         purgeOnly: ['/all.sass'], // applies purging only on the bulma css file
       },
     }, // must be after other CSS plugins
-    'gatsby-plugin-netlify', // make sure to keep it last in the array
+    'gatsby-plugin-netlify', // make sure to keep it last in the array,    
   ],
 }
