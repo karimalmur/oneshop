@@ -2,6 +2,7 @@ import React from "react"
 import { Link, graphql, StaticQuery } from "gatsby"
 import GradientBorderContainer from "./decorators/GradientBorderContainer";
 import { css } from "@emotion/core"
+import { rhythm } from "../utils/typography"
 
 const Navbar = class extends React.Component {
   constructor(props) {
@@ -40,6 +41,8 @@ const Navbar = class extends React.Component {
         aria-label="main-navigation"
         css={css`
           background: transparent;
+          padding-top: ${rhythm(1)};
+          padding-bottom: ${rhythm(1)};
         `}
       >
         <div className="container">
