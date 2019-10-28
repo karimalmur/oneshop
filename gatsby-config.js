@@ -1,18 +1,26 @@
 module.exports = {
   siteMetadata: {
-    title: "OneShop, Product Development Agency",
+    title: "OneShop",
     description:
         "Software development solutions. From developer tools to quality fullstack web & mobile apps.",
   },
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sass',
+    'gatsby-plugin-emotion',
+    'gatsby-plugin-dark-mode',
     {
       // keep as first gatsby-source-filesystem plugin for gatsby image support
       resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/static/img`,
         name: 'uploads',
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-typography',
+      options: {
+        pathToConfigModule: 'src/utils/typography',
       },
     },
     {
