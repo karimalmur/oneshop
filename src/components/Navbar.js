@@ -3,6 +3,7 @@ import { Link, graphql, StaticQuery } from "gatsby"
 import GradientBorderContainer from "./decorators/GradientBorderContainer";
 import { css } from "@emotion/core"
 import { rhythm } from "../utils/typography"
+import PrimaryLink from "./decorators/PrimaryLink";
 
 const Navbar = class extends React.Component {
   constructor(props) {
@@ -45,6 +46,7 @@ const Navbar = class extends React.Component {
           padding-bottom: ${rhythm(1)};
         `}
       >
+        <PrimaryLink to="bla">Bla</PrimaryLink>
         <div className="container">
           <div
             className="navbar-brand"

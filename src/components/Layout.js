@@ -1,18 +1,17 @@
-  import React from 'react'
-import { Helmet } from 'react-helmet'
-import Footer from '../components/Footer'
-import Navbar from '../components/Navbar'
-import './all.sass'
-import useSiteMetadata from './SiteMetadata'
-import { withPrefix } from 'gatsby'
-import styled from "@emotion/styled"
-import { Global, css } from '@emotion/core'
-
-const Wrapper = styled("div")
+import React from "react"
+import { Helmet } from "react-helmet"
+import Footer from "../components/Footer"
+import Navbar from "../components/Navbar"
+import useSiteMetadata from "./SiteMetadata"
+import { withPrefix } from "gatsby"
+import Theme from "../theme"
+import { ThemeProvider } from "emotion-theming"
 
 const TemplateWrapper = ({ children }) => {
   const { title, description } = useSiteMetadata()
+
   return (
+    <ThemeProvider theme={Theme}>
       <div>
         <Helmet>
           <html lang="en" />
@@ -56,6 +55,7 @@ const TemplateWrapper = ({ children }) => {
         <div>{children}</div>
         <Footer />
       </div>
+    </ThemeProvider>
   )
 }
 
