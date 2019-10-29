@@ -3,9 +3,6 @@ import fairyGateTheme from 'typography-theme-fairy-gates'
 
 fairyGateTheme.baseFontSize = "20px"
 
-const typography = new Typography(fairyGateTheme)
-export const { scale, rhythm, options } = typography
-
 fairyGateTheme.overrideThemeStyles = () => ({
   a: {
     color: 'var(--textLink)',
@@ -21,6 +18,12 @@ fairyGateTheme.overrideThemeStyles = () => ({
   hr: {
     background: 'var(--hr)',
   },
+  'h3': {
+    color: 'var(--textTitle)',
+  },
 })
+
+const typography = new Typography(fairyGateTheme)
+export const { scale, rhythm, options } = typography
 
 export default typography

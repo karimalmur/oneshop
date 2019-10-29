@@ -1,0 +1,38 @@
+@value themeColor: #ff4100;
+@value themeAccent: orange;
+@value primaryLight: #EFFFFA;
+@value primaryHover: #343078;
+@value secondaryDark: #010111;
+@value textNormal: rgb(217, 217, 217);
+@value black: #000;
+
+body {
+  --bg: white;
+  --textNormal: #222;
+  --textTitle: #222;
+  --textLink: blue;
+  --hr: hsla(0, 0%, 0%, 0.2);
+
+  background-color: var(--bg);
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+:global body.dark {
+  -webkit-font-smoothing: antialiased;
+
+  --bg: black;
+  --textNormal: textNormal;
+  --textTitle: textNormal;
+  --textLink: yellow;
+  --hr: hsla(0, 0%, 100%, 0.2);
+
+  color: textNormal;
+}
+
+a {
+  text-shadow: none;
+  background-image: none;
+  color: white;
+}
