@@ -1,23 +1,19 @@
-import React from "react";
-import { css } from "@emotion/core";
+import React from "react"
+import { css } from "@emotion/core"
+import { rhythm } from "../../utils/typography"
 
-export default ({ children }) => (
+export default (props) => (
   <div
-    css={css`
-      display: flex;
-    `}
+    className="gb-wrapper"
+    {...props}
   >
     <div
       css={css`
-        display: flex;
-        align-items: center;
-        margin: auto;
-        max-width: 22em;
-
+        display: inline-block;
+        max-width: 22rem;
         position: relative;
-        padding: 0.5rem;
+        padding: ${rhythm(0.15)};
         box-sizing: border-box;
-
         color: #fff;
         background: #000;
         background-clip: padding-box;
@@ -35,7 +31,7 @@ export default ({ children }) => (
         }
       `}
     >
-      {children}
+      {props.children}
     </div>
   </div>
-);
+)

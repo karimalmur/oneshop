@@ -1,38 +1,11 @@
-import React from "react";
-import { Link, graphql, StaticQuery } from "gatsby";
-import GradientBorderContainer from "./decorators/GradientBorderContainer";
-import { css } from "@emotion/core";
-import { rhythm } from "../utils/typography";
-import PrimaryLink from "./decorators/PrimaryLink";
+import React from "react"
+import { graphql, StaticQuery } from "gatsby"
+import { css } from "@emotion/core"
+import { rhythm } from "../utils/typography"
+import Burger from "./Burger/Burger";
+import Menu from "./Menu/Menu";
 
 const Navbar = class extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      active: false,
-      navBarActiveClass: ""
-    };
-  }
-
-  toggleHamburger = () => {
-    // toggle the active boolean in the state
-    this.setState(
-      {
-        active: !this.state.active
-      },
-      // after state has been updated,
-      () => {
-        // set the class in state for the navbar accordingly
-        this.state.active
-          ? this.setState({
-              navBarActiveClass: "is-active"
-            })
-          : this.setState({
-              navBarActiveClass: ""
-            });
-      }
-    );
-  };
 
   render() {
     return (
@@ -40,11 +13,14 @@ const Navbar = class extends React.Component {
         role="navigation"
         aria-label="main-navigation"
         css={css`
-          background: transparent;
-          padding-top: ${rhythm(1)};
-          padding-bottom: ${rhythm(1)};
+          padding: ${rhythm(0.4)};
+          position: absolute;
+          top: 0;
+          padding: ${rhythm(1)}
         `}
       >
+        <Burger />
+        <Menu />
         <div
           className="navbar-brand"
           css={css`
@@ -53,33 +29,7 @@ const Navbar = class extends React.Component {
             }
           `}
         >
-          <Link to="/" className="navbar-item" title="Logo">
-            <GradientBorderContainer>
-              <h1
-                css={css`
-                  :hover {
-                    color: white;
-                  }
-
-                  text-shadow: none;
-                  color: white;
-                  border-bottom: none;
-                `}
-              >
-                {this.props.title}
-              </h1>
-            </GradientBorderContainer>
-          </Link>
-          {/* Hamburger menu */}
-          <div
-            className={`navbar-burger burger ${this.state.navBarActiveClass}`}
-            data-target="navMenu"
-            onClick={() => this.toggleHamburger()}
-          >
-            <span />
-            <span />
-            <span />
-          </div>
+          
         </div>
       </nav>
     );
