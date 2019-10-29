@@ -17,3 +17,8 @@ body.dark {
   --textLink: yellow;
   --hr: hsla(0, 0%, 100%, 0.2);
 }
+
+a {
+  text-shadow: none;
+  background-image: none;
+}

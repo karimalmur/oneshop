@@ -1,43 +1,42 @@
-import React from "react"
-import { Link, graphql, StaticQuery } from "gatsby"
+import React from "react";
+import { Link, graphql, StaticQuery } from "gatsby";
 import GradientBorderContainer from "./decorators/GradientBorderContainer";
-import { css } from "@emotion/core"
-import { rhythm } from "../utils/typography"
+import { css } from "@emotion/core";
+import { rhythm } from "../utils/typography";
 import PrimaryLink from "./decorators/PrimaryLink";
 
 const Navbar = class extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       active: false,
-      navBarActiveClass: '',
-    }
+      navBarActiveClass: ""
+    };
   }
 
   toggleHamburger = () => {
     // toggle the active boolean in the state
     this.setState(
       {
-        active: !this.state.active,
+        active: !this.state.active
       },
       // after state has been updated,
       () => {
         // set the class in state for the navbar accordingly
         this.state.active
           ? this.setState({
-              navBarActiveClass: 'is-active',
+              navBarActiveClass: "is-active"
             })
           : this.setState({
-              navBarActiveClass: '',
-            })
+              navBarActiveClass: ""
+            });
       }
-    )
-  }
+    );
+  };
 
   render() {
     return (
       <nav
-        className="navbar is-transparent"
         role="navigation"
         aria-label="main-navigation"
         css={css`
@@ -46,53 +45,46 @@ const Navbar = class extends React.Component {
           padding-bottom: ${rhythm(1)};
         `}
       >
-        <PrimaryLink to="bla">Bla</PrimaryLink>
-        <div className="container">
-          <div
-            className="navbar-brand"
-            css={css`
-              a {
-                background-image: none;
-              }
-            `}
-          >
-            <Link
-              to="/"
-              className="navbar-item"
-              title="Logo"
-            >
-              <GradientBorderContainer>
-                <h1
-                  css={css`
-                    :hover {
-                      color: white;
-                    }
-
-                    text-shadow: none;
+        <div
+          className="navbar-brand"
+          css={css`
+            a {
+              background-image: none;
+            }
+          `}
+        >
+          <Link to="/" className="navbar-item" title="Logo">
+            <GradientBorderContainer>
+              <h1
+                css={css`
+                  :hover {
                     color: white;
-                    border-bottom: none;
+                  }
+
+                  text-shadow: none;
+                  color: white;
+                  border-bottom: none;
                 `}
-                >
-                  {this.props.title}
-                </h1>
-              </GradientBorderContainer>
-            </Link>
-            {/* Hamburger menu */}
-            <div
-              className={`navbar-burger burger ${this.state.navBarActiveClass}`}
-              data-target="navMenu"
-              onClick={() => this.toggleHamburger()}
-            >
-              <span />
-              <span />
-              <span />
-            </div>
+              >
+                {this.props.title}
+              </h1>
+            </GradientBorderContainer>
+          </Link>
+          {/* Hamburger menu */}
+          <div
+            className={`navbar-burger burger ${this.state.navBarActiveClass}`}
+            data-target="navMenu"
+            onClick={() => this.toggleHamburger()}
+          >
+            <span />
+            <span />
+            <span />
           </div>
         </div>
       </nav>
-    )
+    );
   }
-}
+};
 
 export default () => (
   <StaticQuery
@@ -105,8 +97,6 @@ export default () => (
         }
       }
     `}
-    render={(data) => (
-      <Navbar title={data.site.siteMetadata.title} />
-    )}
+    render={data => <Navbar title={data.site.siteMetadata.title} />}
   />
-)
+);
