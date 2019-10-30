@@ -1,7 +1,9 @@
-import React from "react"
+import React, { useContext } from "react"
 import { scale, rhythm } from "../../utils/typography"
 import { Link } from "gatsby"
 import { css } from "@emotion/core"
+
+import { MenuContext } from "../Layout"
 
 const SmallLogo = (props) => (
   <div
@@ -13,13 +15,16 @@ const SmallLogo = (props) => (
   >
     <Link to="/" className="navbar-item" title="Logo">
       <h1
-        css={{
+        css={theme => ({
           textAlign: "center",
           marginTop: "52px",
           marginBottom: "52px",
           display: "inline-block",
+          background: `linear-gradient(to top left, ${theme.themeColor}, ${theme.themeAccent})`,
+          "-webkit-background-clip": "text",
+          "-webkit-text-fill-color": "transparent",
           ...scale(0.5),
-        }}
+        })}
         {...props}
       >
         <span
@@ -63,41 +68,45 @@ const MenuItem = ({ children, to }) => (
   </Link>
 )
 
-export default () => (
-  <nav
-    css={ theme => ({
-      backgroundColor: theme.secondaryDark,
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      height: "100vh",
-      textAlign: "left",
-      transition: "transform 0.3s ease-in-out",
-      transform: "translateX(-100%)",
-      padding: rhythm(1.5),
-      position: "absolute",
-      top: 0,
-      left: 0,
-      [`@media (max-width: ${theme.mobile})`]: {
-        textAlign: "center",
-        ...scale(1.5)
-      },
-    })}
-  >
-    <SmallLogo />
-    <div
+export default () => {
+  const { menuOpen } = useContext(MenuContext)
+
+  return (
+    <nav
       css={ theme => ({
+        backgroundColor: theme.secondaryDark,
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        "&:hover": {
-          color: theme.primary
-        }
+        height: "100vh",
+        textAlign: "left",
+        transition: "transform 0.3s ease-in-out",
+        transform: menuOpen ? "translateX(0)" : "translateX(-100%)",
+        padding: rhythm(1.5),
+        position: "absolute",
+        top: 0,
+        left: 0,
+        [`@media (max-width: ${theme.mobile})`]: {
+          textAlign: "center",
+          ...scale(1.5)
+        },
       })}
     >
-      <MenuItem to="projects">Our Work</MenuItem>
-      <MenuItem to="about">About Us</MenuItem>
-      <MenuItem to="contact">Contact Us</MenuItem>
-    </div>
-  </nav>
-)
+      <SmallLogo />
+      <div
+        css={ theme => ({
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          "&:hover": {
+            color: theme.primary
+          }
+        })}
+      >
+        <MenuItem to="projects">Our Work</MenuItem>
+        <MenuItem to="about">About Us</MenuItem>
+        <MenuItem to="contact">Contact Us</MenuItem>
+      </div>
+    </nav>
+  )
+}

@@ -1,8 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { Link, graphql } from "gatsby";
+import { Link, graphql } from "gatsby"
 import { css } from "@emotion/core"
-import { scale, rhythm } from "../utils/typography";
+import { scale, rhythm } from "../utils/typography"
 
 import GradientBorderContainer from "../components/decorators/GradientBorderContainer";
 import Layout from "../components/Layout"
@@ -173,18 +173,18 @@ const IndexPage = ({ data }) => {
   const { frontmatter } = data.markdownRemark
 
   return (
-      <Layout>
-        <IndexPageTemplate
-          image={frontmatter.image}
-          siteTitle={site.siteMetadata.title}
-          title={frontmatter.title}
-          heading={frontmatter.heading}
-          subheading={frontmatter.subheading}
-          mainpitch={frontmatter.mainpitch}
-          description={frontmatter.description}
-          intro={frontmatter.intro}
-        />
-      </Layout>
+    <Layout>
+      <IndexPageTemplate
+        image={frontmatter.image}
+        siteTitle={site.siteMetadata.title}
+        title={frontmatter.title}
+        heading={frontmatter.heading}
+        subheading={frontmatter.subheading}
+        mainpitch={frontmatter.mainpitch}
+        description={frontmatter.description}
+        intro={frontmatter.intro}
+      />
+    </Layout>
   )
 }
 
