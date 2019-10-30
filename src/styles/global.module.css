@@ -36,3 +36,36 @@ a {
   background-image: none;
   color: white;
 }
+
+
+/*
+  RTL layout
+*/
+body:lang(ar) article {
+  direction: rtl;
+}
+
+:global body:lang(ar) article pre,
+:global body:lang(ar) article .translations,
+:global body:lang(ar) .language-text {
+  direction: ltr;
+}
+
+/* Fixing parentheses issue in text */
+:global body:lang(ar) .language-text {
+  display: inline-block;
+}
+
+body:lang(ar) blockquote {
+  border-left: unset;
+  border-right: 0.32813rem solid hsla(0, 0%, 0%, 0.9);
+  padding-right: 1.42188rem;
+  padding-left: unset;
+  margin-left: 0.75rem;
+  margin-right: -1.75rem;
+}
+
+body:lang(ar) article,
+body:lang(ar) header > h1 {
+  font-family: 'Cairo', sans-serif;
+}
