@@ -1,9 +1,10 @@
 import React, { useContext } from "react"
-import { scale, rhythm } from "../../utils/typography"
 import { Link } from "gatsby"
 import { css } from "@emotion/core"
 
+import { scale, rhythm } from "../../utils/typography"
 import { MenuContext } from "../Layout"
+import arrowPic from "../../assets/right-arrow.svg"
 
 const SmallLogo = (props) => (
   <div
@@ -56,7 +57,7 @@ const MenuItem = ({ children, to }) => (
     to={to}
   >
     <img
-      src="/img/right-arrow.svg"
+      src={arrowPic}
       alt="menu item"
       width="28px"
       height="28px"
