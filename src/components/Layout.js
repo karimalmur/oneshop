@@ -27,7 +27,11 @@ const TemplateWrapper = ({ children }) => {
       value={{ menuOpen, setMenuOpen }}
     >
       <ThemeProvider theme={Theme}>
-        <div>
+        <div
+          css={css`
+            width: 100%;
+          `}
+        >
           <Helmet>
             <html lang="en" />
             <title>{title}</title>
@@ -67,13 +71,16 @@ const TemplateWrapper = ({ children }) => {
             />
           </Helmet>
           <div>
+            <Navbar />
+            <div>{children}</div>
+            <Footer />
             <div
               css={css`
                 bottom: 0;
                 opacity: ${menuOpen ? .5 : 0};
                 pointer-events: auto;
                 background-color: #000;
-                display: block;
+                display: ${menuOpen ? "block" : "none"};
                 left: 0;
                 right: 0;
                 top: 0;
@@ -92,9 +99,6 @@ const TemplateWrapper = ({ children }) => {
               <Menu />
             </div>
           </div>
-          <Navbar />
-          <div>{children}</div>
-          <Footer />
         </div>
       </ThemeProvider>
     </MenuContext.Provider>

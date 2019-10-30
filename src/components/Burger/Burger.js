@@ -32,7 +32,7 @@ export default () => {
 
         div: {
           width: "1.7rem",
-          height: "0.17rem",
+          height: "0.1rem",
           background: theme.primaryLight,
           transition: "all 0.3s linear",
           position: "relative",
