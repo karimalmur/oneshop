@@ -2,8 +2,6 @@ import React from "react"
 import { graphql, StaticQuery } from "gatsby"
 import { css } from "@emotion/core"
 import { rhythm } from "../utils/typography"
-import Burger from "./Burger/Burger";
-import Menu from "./Menu/Menu";
 
 const Navbar = class extends React.Component {
 
@@ -19,8 +17,6 @@ const Navbar = class extends React.Component {
           padding: ${rhythm(1)}
         `}
       >
-        <Burger />
-        <Menu />
         <div
           className="navbar-brand"
           css={css`
