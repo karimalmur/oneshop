@@ -5,6 +5,7 @@ import { css } from "@emotion/core"
 import { scale, rhythm } from "../../utils/typography"
 import { MenuContext } from "../Layout"
 import arrowPic from "../../assets/right-arrow.svg"
+import PrimaryLink from "../decorators/PrimaryLink"
 
 const SmallLogo = (props) => (
   <div
@@ -21,32 +22,21 @@ const SmallLogo = (props) => (
           marginTop: "52px",
           marginBottom: "52px",
           display: "inline-block",
-          background: `linear-gradient(to top left, ${theme.themeColor}, ${theme.themeAccent})`,
+          background: `linear-gradient(to top right, ${theme.themeColor}, ${theme.themeAccent})`,
           "-webkit-background-clip": "text",
           "-webkit-text-fill-color": "transparent",
           ...scale(0.5),
         })}
         {...props}
       >
-        <span
-          css={theme => ({
-            color: theme.themeColor,
-          })}>
-            o
-        </span>
-        <span
-          css={theme => ({
-            color: theme.themeAccent,
-          })}>
-            s
-        </span>
+        os
       </h1>
     </Link>
   </div>
 )
 
 const MenuItem = ({ children, to }) => (
-  <Link
+  <PrimaryLink
     css={{
       paddingRight: rhythm(0.7),
       paddingBottom: rhythm(1),
@@ -55,6 +45,7 @@ const MenuItem = ({ children, to }) => (
       ...scale(1)
     }}
     to={to}
+    inverted
   >
     <img
       src={arrowPic}
@@ -66,7 +57,7 @@ const MenuItem = ({ children, to }) => (
         margin-right: ${rhythm(1)};
       `}/>
     {children}
-  </Link>
+  </PrimaryLink>
 )
 
 export default () => {
@@ -79,7 +70,7 @@ export default () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        height: "100vh",
+        minHeight: "100vh",
         textAlign: "left",
         transition: "transform 0.3s ease-in-out",
         transform: menuOpen ? "translateX(0)" : "translateX(-100%)",

@@ -18,6 +18,10 @@ const Logo = (props) => (
 
       div {
         margin: 0 auto;
+
+        &:hover {
+          background-color: #0005;
+        }
       }
     `}
     {...props}

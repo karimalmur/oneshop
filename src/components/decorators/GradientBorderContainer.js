@@ -27,7 +27,7 @@ export default (props) => (
           left: 0;
           z-index: -1;
           margin: -3px;
-          background: linear-gradient(to top left, ${theme.themeColor}, ${theme.themeAccent});
+          background: linear-gradient(to top right, ${theme.themeColor}, ${theme.themeAccent});
         }
       `)}
     >
