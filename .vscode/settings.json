@@ -1,5 +1,11 @@
 {
   "cSpell.ignoreWords": [
+    
+  ],
+  "cSpell.words": [
+    "almur",
+    "frontmatter",
+    "mainpitch",
     "component",
     "darkslategray",
     "devtool",
@@ -7,8 +13,5 @@
     "karimit",
     "unmount",
     "will"
-  ],
-  "cSpell.words": [
-    "almur"
   ]
 }

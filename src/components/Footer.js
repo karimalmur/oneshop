@@ -1,12 +1,11 @@
 import React from "react"
-import { Link, StaticQuery } from "gatsby"
+import { StaticQuery } from "gatsby"
 import { css } from "@emotion/core"
 import styled from "@emotion/styled"
 
 import SmallLogo from "./Logo/SmallLogo"
 import { rhythm } from "../utils/typography"
 import PrimaryLink from "./decorators/PrimaryLink"
-import UnderlinedPrimaryLink from "./decorators/UnderlinedPrimaryLink"
 
 const SocialLink = styled(PrimaryLink)`
   padding: ${rhythm(.5)};
