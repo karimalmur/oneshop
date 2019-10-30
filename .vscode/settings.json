@@ -1,9 +1,12 @@
 {
   "cSpell.ignoreWords": [
+    "component",
     "darkslategray",
     "devtool",
     "hsla",
-    "karimit"
+    "karimit",
+    "unmount",
+    "will"
   ],
   "cSpell.words": [
     "almur"

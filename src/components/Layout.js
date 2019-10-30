@@ -1,19 +1,26 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import { Helmet } from "react-helmet"
+import { withPrefix } from "gatsby"
+import { ThemeProvider } from "emotion-theming"
+import { css } from "@emotion/core"
+
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import Burger from "./Burger/Burger"
 import Menu from "./Menu/Menu"
 import useSiteMetadata from "./SiteMetadata"
-import { withPrefix } from "gatsby"
 import Theme from "../theme"
-import { ThemeProvider } from "emotion-theming"
+import { useOnClickOutside } from "../hooks"
 
 export const MenuContext = React.createContext()
 
 const TemplateWrapper = ({ children }) => {
   const { title, description } = useSiteMetadata()
   const [menuOpen, setMenuOpen] = useState(false)
+
+  // Handle clicks outside of the menu
+  const node = useRef()
+  useOnClickOutside(node, () => setMenuOpen(false))
 
   return (
     <MenuContext.Provider
@@ -59,8 +66,32 @@ const TemplateWrapper = ({ children }) => {
               content={`${withPrefix('/')}img/og-image.jpg`}
             />
           </Helmet>
-          <Burger />
-          <Menu />
+          <div>
+            <div
+              css={css`
+                bottom: 0;
+                opacity: ${menuOpen ? .5 : 0};
+                pointer-events: auto;
+                background-color: #000;
+                display: block;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                position: fixed;
+                z-index: 0;
+              `}
+            />
+            <div
+              ref={node}
+              css={css`
+                z-index: 10;
+              `}
+            >
+              <Burger />
+              <Menu />
+            </div>
+          </div>
           <Navbar />
           <div>{children}</div>
           <Footer />
