@@ -67,9 +67,9 @@ export const IndexPageTemplate = (props) => {
           css={css`
             margin-top: ${rhythm(wideScreen ? 2 : 1)};
             margin-right: ${rhythm(2)};
-            padding-right: ${rhythm(.5)};
+            padding-right: ${rhythm(.9)};
             flex: 1;
-            border-right: ${ wideScreen ? "1px dotted #fff5" : "none"};
+            border-right: ${ wideScreen ? "1px solid #fff5" : "none"};
           `}
         >
           <h1
