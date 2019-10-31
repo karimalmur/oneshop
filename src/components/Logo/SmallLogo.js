@@ -19,8 +19,8 @@ const SmallLogo = (props) => (
           marginBottom: "52px",
           display: "inline-block",
           background: `linear-gradient(to top right, ${theme.themeColor}, ${theme.themeAccent})`,
-          "-webkit-background-clip": "text",
-          "-webkit-text-fill-color": "transparent",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
           ...scale(0.5),
         })}
         {...props}

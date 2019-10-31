@@ -41,7 +41,7 @@ export default () => {
         backgroundColor: theme.secondaryDark,
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
+        justifyContent: "start",
         minHeight: "100vh",
         textAlign: "left",
         transition: "transform 0.3s ease-in-out",
@@ -67,9 +67,9 @@ export default () => {
           }
         })}
       >
-        <MenuItem to="projects">Our Work</MenuItem>
-        <MenuItem to="about">About Us</MenuItem>
-        <MenuItem to="contact">Contact Us</MenuItem>
+        <MenuItem to="/projects">Our Work</MenuItem>
+        <MenuItem to="/about">About Us</MenuItem>
+        <MenuItem to="/contact">Hire Us</MenuItem>
       </div>
     </nav>
   )

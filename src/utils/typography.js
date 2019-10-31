@@ -18,7 +18,22 @@ fairyGateTheme.overrideThemeStyles = () => ({
   hr: {
     background: 'var(--hr)',
   },
+  'h1': {
+    color: 'var(--textTitle)',
+  },
+  'h2': {
+    color: 'var(--textTitle)',
+  },
   'h3': {
+    color: 'var(--textTitle)',
+  },
+  'h4': {
+    color: 'var(--textTitle)',
+  },
+  'h5': {
+    color: 'var(--textTitle)',
+  },
+  'h6': {
     color: 'var(--textTitle)',
   },
 })

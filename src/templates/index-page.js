@@ -49,9 +49,20 @@ export const IndexPageTemplate = (props) => {
   } = props
 
   return(
-    <div>
+    <>
       <Logo title={siteTitle} />
-    </div>
+      <main>
+        <section className="intro">
+          <h1
+            css={css`
+              transition-delay: 200ms;
+            `}
+          >
+            This is {siteTitle}.
+          </h1>
+        </section>
+      </main>
+    </>
   )
 }
 
@@ -70,19 +81,11 @@ IndexPageTemplate.propTypes = {
 
 const IndexPage = ({ data }) => {
   const { site } = data
-  const { frontmatter } = data.markdownRemark
 
   return (
     <Layout>
       <IndexPageTemplate
-        image={frontmatter.image}
         siteTitle={site.siteMetadata.title}
-        title={frontmatter.title}
-        heading={frontmatter.heading}
-        subheading={frontmatter.subheading}
-        mainpitch={frontmatter.mainpitch}
-        description={frontmatter.description}
-        intro={frontmatter.intro}
       />
     </Layout>
   )

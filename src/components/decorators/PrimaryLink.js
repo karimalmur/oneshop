@@ -1,12 +1,14 @@
 import React from "react"
+import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import { css } from "@emotion/core"
 
 import Theme from "../../theme"
 
-export default (props) => {
-  const { children, inverted } = props
+const PrimaryLink = (props) => {
+  const {children, inverted, ...linkProps} = props
   const color = inverted ? Theme.textNormal : Theme.themeColor
+
   const hoverColorProperties = inverted ?
     css`
       &:hover {
@@ -22,11 +24,18 @@ export default (props) => {
     <Link
       css={{
         color: color,
+        fontWeight: 700,
         "&:hover": hoverColorProperties,
       }}
-      {...props}
+      {...linkProps}
     >
       {children}
     </Link>
   )
+}
+
+export default PrimaryLink
+
+PrimaryLink.propTypes = {
+  inverted: PropTypes.bool,
 }
