@@ -6,7 +6,20 @@
 @value textNormal: rgb(217, 217, 217);
 @value black: #000;
 
+:global #___gatsby {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+:global #___gatsby #gatsby-focus-wrapper{
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
 body {
+  height: 100vh;
   --bg: white;
   --textNormal: #222;
   --textTitle: #222;
