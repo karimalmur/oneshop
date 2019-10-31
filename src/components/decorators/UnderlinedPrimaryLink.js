@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import PrimaryLink from "./PrimaryLink"
 import styled from "@emotion/styled"
 
@@ -24,8 +25,37 @@ const StyledLink = styled(PrimaryLink)`
   }
 `
 
+const PermanentlyUnderlinedStyledLink = styled(PrimaryLink)`
+  position: relative;
+
+  &:after {
+    background: none repeat scroll 0 0 transparent;
+    background: ${props => props.theme.themeColor};
+    content: "";
+    position: absolute;
+    display: block;
+    height: 2px;
+    bottom: 0;
+    width: 0;
+    left: 50%;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  }
+
+  &:after { 
+    width: 100%; 
+    left: 0; 
+  }
+`
+
 const UnderlinedPrimaryLink = (props) => (
-  <StyledLink {...props} />
+  <>
+    {props.permanent && <PermanentlyUnderlinedStyledLink {...props} />}
+    {!props.permanent && <StyledLink {...props} />}
+  </>
 )
 
 export default UnderlinedPrimaryLink
+
+UnderlinedPrimaryLink.propTypes = {
+  permanent: PropTypes.bool,
+}

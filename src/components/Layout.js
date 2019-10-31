@@ -5,12 +5,12 @@ import { ThemeProvider } from "emotion-theming"
 import { css } from "@emotion/core"
 
 import Footer from "../components/Footer"
-import Navbar from "../components/Navbar"
 import Burger from "./Burger/Burger"
 import Menu from "./Menu/Menu"
 import useSiteMetadata from "./SiteMetadata"
 import Theme from "../theme"
 import { useOnClickOutside } from "../hooks"
+import { rhythm } from "../utils/typography"
 
 export const MenuContext = React.createContext()
 
@@ -70,34 +70,38 @@ const TemplateWrapper = ({ children }) => {
               content={`${withPrefix('/')}img/og-image.jpg`}
             />
           </Helmet>
-          <div>
-            <Navbar />
-            <div>{children}</div>
-            <Footer />
-            <div
-              css={css`
-                bottom: 0;
-                opacity: ${menuOpen ? .5 : 0};
-                pointer-events: auto;
-                background-color: #000;
-                display: ${menuOpen ? "block" : "none"};
-                left: 0;
-                right: 0;
-                top: 0;
-                bottom: 0;
-                position: fixed;
-                z-index: 0;
-              `}
-            />
-            <div
-              ref={node}
-              css={css`
-                z-index: 10;
-              `}
-            >
-              <Burger />
-              <Menu />
-            </div>
+          <main
+            css={css`
+              padding: 0 ${rhythm(1)};
+              max-width: 960px;
+            `}
+          >
+            {children}
+          </main>
+          <Footer />
+          <div
+            css={css`
+              bottom: 0;
+              opacity: ${menuOpen ? .5 : 0};
+              pointer-events: auto;
+              background-color: #000;
+              display: ${menuOpen ? "block" : "none"};
+              left: 0;
+              right: 0;
+              top: 0;
+              bottom: 0;
+              position: fixed;
+              z-index: 0;
+            `}
+          />
+          <div
+            ref={node}
+            css={css`
+              z-index: 10;
+            `}
+          >
+            <Burger />
+            <Menu />
           </div>
         </div>
       </ThemeProvider>
