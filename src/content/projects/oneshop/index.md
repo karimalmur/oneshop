@@ -6,6 +6,7 @@ external: 'https://oneshop.netlify.com'
 tech:
   - Gatsby
   - Netlify CMS
+templateKey: 'project-index'
 ---
 
 Our Website

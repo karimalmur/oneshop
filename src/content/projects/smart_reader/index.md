@@ -6,6 +6,7 @@ external: 'https://github.com/karimit/smart-reader'
 tech:
   - Kotlin
   - WPF
+templateKey: 'project-index'
 ---
 
 A multi-platform app for a better e-book experience.

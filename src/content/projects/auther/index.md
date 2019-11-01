@@ -5,6 +5,7 @@ github: 'https://github.com/karimit/devise_token_auth'
 external: 'https://devise-token-auth.gitbook.io/devise-token-auth/'
 tech:
   - Ruby
+templateKey: 'project-index'
 ---
 
 Ruby token authentication framework for rails APIs.

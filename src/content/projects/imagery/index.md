@@ -5,6 +5,7 @@ github: 'https://github.com/karimit/imagery'
 external: 'https://www.imgix.com/'
 tech:
   - Rust
+templateKey: 'project-index'
 ---
 
 Powerful image processing, simple API

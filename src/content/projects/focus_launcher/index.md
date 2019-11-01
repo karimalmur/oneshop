@@ -5,6 +5,7 @@ github: 'https://github.com/karimit/fl'
 external: 'https://www.androidcentral.com/best-android-launchers'
 tech:
   - Kotlin
+templateKey: 'project-index'
 ---
 
 Focus oriented launcher. User's productivity and ease of use, a beautiful, yet simplistic design,
