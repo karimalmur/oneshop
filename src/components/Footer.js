@@ -85,8 +85,8 @@ const Footer = () => {
               </PrimaryLink>
             </li>
             <li>
-              <PrimaryLink to="/products" inverted={true}>
-                PRODUCTS
+              <PrimaryLink to="/projects" inverted={true}>
+                PROJECTS
               </PrimaryLink>
             </li>
             <li>
