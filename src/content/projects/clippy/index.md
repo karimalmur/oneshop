@@ -1,6 +1,6 @@
 ---
 title: 'Clippy'
-image: 'https://digitalasset.intuit.com/IMAGE/A5IlMIj2F/Mint_Lockup_1_.png'
+image: './oneshop.png'
 github: 'https://github.com/karimit/clippy'
 external: 'https://www.onenote.com/'
 rank: 8

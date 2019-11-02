@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Img from 'gatsby-image'
+import { useMediaQuery } from "react-responsive"
 import { Link, graphql } from "gatsby"
 import { css } from "@emotion/core"
 import styled from "@emotion/styled"
@@ -122,7 +123,7 @@ const ProjectsContainer = styled.section`
 
 const ProjectListContainer = styled.div`
   position: relative;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   ::-webkit-scrollbar
   {
@@ -380,6 +381,8 @@ const ProjectIndex = ({ data }) => {
   const projects = data["projects"].edges
   const currentProject = projects[0].node
 
+  const wideScreen = useMediaQuery({ query: "(min-device-width: 760px)" })
+
   return (
     <Layout
       wide
@@ -393,8 +396,10 @@ const ProjectIndex = ({ data }) => {
       `}
     >
       <ProjectsContainer>
-        <Projects currentProject={currentProject} projects={projects} />
-        <CurrentProject project={currentProject}/>
+        <Projects currentProject={wideScreen && currentProject} projects={projects} />
+        {wideScreen && <>
+          <CurrentProject project={currentProject}/>
+        </>}
       </ProjectsContainer>
     </Layout>
   )
