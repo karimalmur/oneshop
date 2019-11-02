@@ -8,6 +8,7 @@ tech:
   - Kotlin
   - WPF
 templateKey: 'project-index'
+type: 'project'
 ---
 
 A multi-platform app for a better e-book experience.

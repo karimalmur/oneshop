@@ -8,6 +8,7 @@ tech:
   - Gatsby
   - Netlify CMS
 templateKey: 'project-index'
+type: 'project'
 ---
 
 Our Website

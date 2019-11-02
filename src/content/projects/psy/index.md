@@ -7,6 +7,7 @@ rank: 2
 tech:
   - Rust
 templateKey: 'project-index'
+type: 'project'
 ---
 
 A powerful unix cat clone.

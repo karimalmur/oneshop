@@ -7,6 +7,7 @@ rank: 10
 tech:
   - Ruby
 templateKey: 'project-index'
+type: 'project'
 ---
 
 Ruby token authentication framework for rails APIs.

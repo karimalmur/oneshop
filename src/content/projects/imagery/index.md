@@ -7,6 +7,7 @@ rank: 7
 tech:
   - Rust
 templateKey: 'project-index'
+type: 'project'
 ---
 
 Powerful image processing, simple API

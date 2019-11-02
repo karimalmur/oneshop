@@ -7,6 +7,7 @@ rank: 3
 tech:
   - Rust
 templateKey: 'project-index'
+type: 'project'
 ---
 
 LOG BETTER. SOLVE PROBLEMS FASTER.

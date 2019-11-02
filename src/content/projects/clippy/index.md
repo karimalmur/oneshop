@@ -8,6 +8,7 @@ tech:
   - ASP.Net Core
   - React
 templateKey: 'project-index'
+type: 'project'
 ---
 
 Clip and annotate any webpage element with a dependable browser extension.

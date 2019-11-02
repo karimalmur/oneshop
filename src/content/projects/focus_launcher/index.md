@@ -7,6 +7,7 @@ rank: 1
 tech:
   - Kotlin
 templateKey: 'project-index'
+type: 'project'
 ---
 
 Focus oriented launcher. User's productivity and ease of use, a beautiful, yet simplistic design,

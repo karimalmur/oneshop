@@ -7,6 +7,7 @@ rank: 4
 tech:
   - OpenGL
 templateKey: 'project-index'
+type: 'project'
 ---
 
 A fun, multiplier Sepak game.

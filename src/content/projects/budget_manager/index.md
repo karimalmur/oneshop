@@ -8,6 +8,7 @@ tech:
   - ASP.Net Core
   - React
 templateKey: 'project-index'
+type: 'project'
 ---
 
 Budget Manager is a web app that helps you track your earnings and expenses.

@@ -9,6 +9,7 @@ tech:
   - React
   - Kotlin
 templateKey: 'project-index'
+type: 'project'
 ---
 
 An event scheduling web & android app.
