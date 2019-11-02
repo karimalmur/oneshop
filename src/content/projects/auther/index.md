@@ -1,8 +1,9 @@
 ---
 title: 'Auther'
-image: 'https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/spaces%2F-L9vQNRBNEYkwzEL3fSh%2Favatar.png?generation=1523562941742335&alt=media'
+image: './oneshop.png'
 github: 'https://github.com/karimit/devise_token_auth'
 external: 'https://devise-token-auth.gitbook.io/devise-token-auth/'
+rank: 10
 tech:
   - Ruby
 templateKey: 'project-index'

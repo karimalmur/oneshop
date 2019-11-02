@@ -132,7 +132,16 @@ const IndexPage = ({ data }) => {
   const { site } = data
 
   return (
-    <Layout>
+    <Layout
+      css={css`
+        main {
+          padding: 0 ${rhythm(1)};
+          padding-bottom: ${rhythm(2)};
+          max-width: 960px;
+          margin: 0 auto;
+        }
+      `}
+    >
       <IndexPageTemplate
         siteTitle={site.siteMetadata.title}
         description={site.siteMetadata.description}

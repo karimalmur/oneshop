@@ -10,12 +10,12 @@ import Menu from "./Menu/Menu"
 import useSiteMetadata from "./SiteMetadata"
 import Theme from "../theme"
 import { useOnClickOutside } from "../hooks"
-import { rhythm } from "../utils/typography"
 import Navbar from "./Navbar"
 
 export const MenuContext = React.createContext()
 
-const TemplateWrapper = ({ children }) => {
+const TemplateWrapper = (props) => {
+  const { children, burgerSpacing } = props
   const { title, description } = useSiteMetadata()
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -68,42 +68,23 @@ const TemplateWrapper = ({ children }) => {
         </Helmet>
         <div
           css={css`
-            position: relative;
-            height: 100%;
-            width: 100%;
+            display: flex;
+            min-height: 100%;
+            flex-direction: column;
           `}
+          {...props}
         >
           <div
             css={css`
-              position: absolute;
-              top: 0;
-              left: 0;
-              right: 0;
-              bottom: 0;
-              min-height: 100%;
+              flex: 1;
             `}
           >
-            <div
-              css={css`
-                min-height: 100%;
-                padding: 0;
-                position: relative;
-              `}
-            >
-              <Navbar />
-              <main
-                css={css`
-                  padding: 0 ${rhythm(1)};
-                  padding-bottom: ${rhythm(2)};
-                  max-width: 960px;
-                  margin: 0 auto;
-                `}
-              >
-                {children}
-              </main>
-              <Footer />
-            </div>
+            <Navbar />
+            <main>
+              {children}
+            </main>
           </div>
+          <Footer />
         </div>
         <div
           css={css`
@@ -126,7 +107,7 @@ const TemplateWrapper = ({ children }) => {
             z-index: 10;
           `}
         >
-          <Burger />
+          <Burger spacing={burgerSpacing} />
           <Menu />
         </div>
 

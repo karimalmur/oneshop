@@ -1,8 +1,9 @@
 ---
 title: 'ruog'
-image: './oneshop.png'
+image: './timber.io_.png'
 github: 'https://github.com/karimit/roug'
 external: 'https://github.com/karimit/ruog'
+rank: 3
 tech:
   - Rust
 templateKey: 'project-index'

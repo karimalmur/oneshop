@@ -3,7 +3,8 @@ import { rhythm } from "../../utils/typography"
 
 import { MenuContext } from "../Layout"
 
-export default () => {
+export default ({ spacing }) => {
+  spacing = spacing ? spacing : rhythm(1.4)
   const { menuOpen, setMenuOpen } = useContext(MenuContext)
   return (
     <button
@@ -13,8 +14,8 @@ export default () => {
 
       css={ theme => ({
         position: "absolute",
-        top: rhythm(1.4),
-        left: rhythm(1.4),
+        top: spacing,
+        left: spacing,
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-around",
@@ -31,12 +32,12 @@ export default () => {
         },
 
         div: {
-          width: "1.7rem",
+          width: "1.4rem",
           height: "0.1rem",
           background: theme.primaryLight,
           transition: "all 0.3s linear",
           position: "relative",
-          transformOrigin: 4,
+          transformOrigin: 1,
 
           ":first-child": {
             transform: menuOpen ? "rotate(45deg)" : "rotate(0)",

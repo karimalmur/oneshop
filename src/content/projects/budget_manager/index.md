@@ -1,8 +1,9 @@
 ---
 title: 'Budget Manager'
-image: 'https://digitalasset.intuit.com/IMAGE/A5IlMIj2F/Mint_Lockup_1_.png'
+image: './oneshop.png'
 github: 'https://github.com/karimit/BudgetManager'
 external: 'https://www.mint.com/'
+rank: 9
 tech:
   - ASP.Net Core
   - React

@@ -60,13 +60,6 @@ const ProjectsContainer = styled.section`
   align-items: flex-start;
 `
 
-const ProjectsTitle = styled.h4`
-  margin: 0 auto 50px;
-  a {
-    display: block;
-  }
-`
-
 const ProjectsGrid = styled.div`
   .projects {
     display: grid;

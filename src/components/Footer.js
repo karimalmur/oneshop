@@ -29,16 +29,18 @@ const SocialLink = styled.a`
 const Footer = () => {
   const isWideScreen = useMediaQuery({ query: "(min-device-width: 532px)" })
   return (
+    /* flex: none ::: Set `flex-shrink` to `0` to prevent some browsers from
+    *    letting these items shrink to smaller than their content's default
+    *    minimum size. See http://bit.ly/1Mn35US for details.
+    */
     <footer
       css={theme => (css`
-        position: absolute;
+        flex: none;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         padding-left: ${rhythm(1)};
         padding-right: ${rhythm(1)};
-        bottom: 0px;
-        left: 0px;
         background: ${theme.secondaryDark};
         width: 100%;
       `)}
@@ -76,6 +78,10 @@ const Footer = () => {
                 display: inline-block;
                 margin-right: ${rhythm(1)};
                 margin-bottom: 0;
+
+                a {
+                  text-transform: uppercase;
+                }
               }
             `}
           >

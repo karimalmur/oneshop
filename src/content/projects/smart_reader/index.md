@@ -3,6 +3,7 @@ title: 'Smart Reader'
 image: './smart-reader.jpg'
 github: 'https://github.com/karimit/smart-reader'
 external: 'https://github.com/karimit/smart-reader'
+rank: 11
 tech:
   - Kotlin
   - WPF

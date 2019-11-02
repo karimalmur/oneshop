@@ -1,5 +1,6 @@
-import React from "react"
+import React, { useState, useContext } from "react"
 import PropTypes from "prop-types"
+import Img from 'gatsby-image'
 import { graphql } from "gatsby"
 import { css } from "@emotion/core"
 import styled from "@emotion/styled"
@@ -8,6 +9,63 @@ import Layout from "../../components/Layout"
 import IconGithub from "../../components/icons/github"
 import IconExternal from "../../components/icons/external"
 import { scale, rhythm } from "../../utils/typography"
+
+const BoxShadow = css`
+  box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  &:hover,
+  &:focus {
+    box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.7);
+  }
+`
+
+const FeaturedImg = styled(Img)`
+  width: 100%;
+  max-width: 100%;
+  vertical-align: middle;
+  border-radius: 3px;
+  position: relative;
+  mix-blend-mode: multiply;
+  filter: grayscale(100%) contrast(1) brightness(90%);
+  @media (min-width: 760px) {
+    object-fit: cover;
+    width: auto;
+    height: 100%;
+    filter: grayscale(100%) contrast(1) brightness(80%);
+  }
+`
+
+const ImgContainer = styled.a`
+  ${BoxShadow};
+  position: relative;
+  z-index: 1;
+  background-color: ${props => props.theme.themeAccent};
+  border-radius: 3px;
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  &:hover,
+  &:focus {
+    background: transparent;
+    &:before,
+    ${FeaturedImg} {
+      background: transparent;
+      filter: none;
+    }
+  }
+  &:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+    background-color: rgba(2, 12, 27, 0.7);
+    mix-blend-mode: screen;
+  }
+`;
 
 const inlineLink = css`
   display: inline-block;
@@ -39,27 +97,23 @@ const inlineLink = css`
   }
 `
 
-const BoxShadow = css`
-  box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
-  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-  &:hover,
-  &:focus {
-    box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.7);
-  }
-`
-
 const ProjectsContainer = styled.section`
-  max-width: 1000px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   overflow: hidden;
-  height: 80vh;
+  flex-grow: 1;
   width: 100%;
   position: relative;
+
+  @media (min-width: 760px) {
+    flex-direction: row;
+  }
 `
 
 const ProjectListContainer = styled.div`
   position: relative;
+  overflow-y: scroll;
+
   ::-webkit-scrollbar
   {
     width: 12px;  /* for vertical scrollbars */
@@ -80,13 +134,11 @@ const ProjectListContainer = styled.div`
   @media (min-width: 850px) {
     flex: 0 0 300px;
     margin-top: 0;
-    height: 80vh;
     overflow-y: scroll;
   }
 `
 
 const ProjectList = styled.div`
-  height: auto;
   @media (min-width: 850px) {
     background-color: rgba(2, 12, 27, 0.7);
     padding-right: 1px;
@@ -112,14 +164,14 @@ const ProjectInner = styled.div`
   align-items: flex-start;
   position: relative;
   padding: ${rhythm(.5)};
-  height: 100%;
   border-radius: 3;
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   background-color: rgba(2, 12, 27, 0.7);
+  height: 100%;
 
   &:hover {
     background: rgba(2, 12, 27, 0.9);
-    cursor: pointer;
+    cursor: ${props => props.active ? "pointer" : "inherit"};
   }
 `;
 
@@ -152,7 +204,6 @@ const IconLink = styled.a`
 const ProjectName = styled.h5`
   display: inline-block;
   margin: ${rhythm(.1)};
-  text-align: center;
   color: ${props => props.theme.themeAccent};
   ${scale(.1)}
 `;
@@ -175,8 +226,8 @@ const TechList = styled.ul`
   align-items: flex-end;
   flex-wrap: wrap;
   margin-top: ${rhythm(.1)};
+  margin-left: ${rhythm(.25)};
   margin-bottom: 0;
-  margin-left: 0;
   list-style: none;
   li {
     color: ${props => props.theme.themeColor};
@@ -190,49 +241,60 @@ const TechList = styled.ul`
   }
 `;
 
-const Projects = ({ projects }) => (
-  <ProjectsContainer>
+
+const CurrentProjectContext = React.createContext()
+
+const Projects = ({ projects }) => {
+  const { setCurrentProject } = useContext(CurrentProjectContext)
+
+  return (
     <ProjectListContainer>
       <ProjectList>
         <ProjectListHeader>Our Projects</ProjectListHeader>
         {projects.map(({ node }, i) => {
-          const { frontmatter, html } = node;
+          const { frontmatter, excerpt } = node;
           const { github, external, title, tech } = frontmatter;
           return (
             <Project
-              key={i}
-              tabIndex="0"
+            key={i}
+            tabIndex="0"
+            onClick={() => { setCurrentProject(node) }}
             >
-              <ProjectInner>
+              <ProjectInner active>
                 <header>
                   <ProjectName>{title}</ProjectName>
                   <Links>
                     {github && (
                       <IconLink
-                        href={github}
-                        target="_blank"
-                        rel="nofollow noopener noreferrer"
-                        aria-label="Github Link">
+                      href={github}
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                      aria-label="Github Link">
                         <IconGithub />
                       </IconLink>
                     )}
                     {external && (
                       <IconLink
-                        href={external}
-                        target="_blank"
-                        rel="nofollow noopener noreferrer"
-                        aria-label="External Link">
+                      href={external}
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                      aria-label="External Link">
                         <IconExternal />
                       </IconLink>
                     )}
                   </Links>
-                  <ProjectDescription dangerouslySetInnerHTML={{ __html: html }} />
+                  <ProjectDescription dangerouslySetInnerHTML={{ __html: excerpt }} />
                 </header>
-                <footer>
+                <footer
+                  css={css`
+                    background-color: rgba(0, 0, 0, 0.4);
+                    width: 100%;
+                  `}
+                >
                   <TechList>
                     {tech.map((tech, i) => (
                       <li key={i}>{tech}</li>
-                    ))}
+                      ))}
                   </TechList>
                 </footer>
               </ProjectInner>
@@ -241,22 +303,107 @@ const Projects = ({ projects }) => (
         })}
       </ProjectList>
     </ProjectListContainer>
-  </ProjectsContainer>
-)
+  )
+}
 
-const ProjectIndex = ({ data }) => (
-  <Layout>
-    {console.log(data)}
-    <Projects projects={data["projects"].edges}/>
-  </Layout>
-)
+const CurrentProjectContainer = styled.div`
+  flex-grow: 1;
+  overflow-y: auto;
+  border: ${props => `1px solid ${props.theme.themeColor}`};
+  border-left: none;
+`
+
+const CurrentProject = () => {
+  const { currentProject } = useContext(CurrentProjectContext)
+  const { frontmatter, html } = currentProject
+  const { github, external, title, tech, image } = frontmatter
+
+  return (
+    <CurrentProjectContainer>
+      <ProjectInner>
+        <header>
+          <ProjectName>{title}</ProjectName>
+          <Links>
+            {github && (
+              <IconLink
+                href={github}
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                aria-label="Github Link">
+                <IconGithub />
+              </IconLink>
+            )}
+            {external && (
+              <IconLink
+                href={external}
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                aria-label="External Link">
+                <IconExternal />
+              </IconLink>
+            )}
+          </Links>
+          <ProjectDescription dangerouslySetInnerHTML={{ __html: html }} />
+        </header>
+        <ImgContainer
+          href={external ? external : github ? github : '#'}
+          target="_blank"
+          rel="nofollow noopener noreferrer">
+          <FeaturedImg fluid={image.childImageSharp.fluid} />
+        </ImgContainer>
+        <footer
+          css={css`
+            background-color: rgba(0, 0, 0, 0.4);
+            width: 100%;
+          `}
+        >
+          <TechList>
+            {tech.map((tech, i) => (
+              <li key={i}>{tech}</li>
+              ))}
+          </TechList>
+        </footer>
+      </ProjectInner>
+    </CurrentProjectContainer>
+  )
+}
+
+const ProjectIndex = ({ data }) => {
+  const projects = data["projects"].edges
+  const [currentProject, setCurrentProject] =
+    useState(projects.find(p => p.node.frontmatter.rank === 1).node)
+
+  return (
+    <CurrentProjectContext.Provider
+      value={{ currentProject, setCurrentProject }}
+    >
+      <Layout
+        wide
+        burgerSpacing={rhythm(.5)}
+
+        css={css`
+          nav {
+            padding-top: ${rhythm(.4)};
+            padding-bottom: ${rhythm(.4)};
+          }
+        `}
+      >
+        <ProjectsContainer>
+          <Projects projects={data["projects"].edges} />
+          <CurrentProject />
+        </ProjectsContainer>
+      </Layout>
+    </CurrentProjectContext.Provider>
+  )
+}
 
 export default ProjectIndex
 
 export const pageQuery = graphql`
   {
     projects: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/projects/" } }
+      filter: { fileAbsolutePath: { regex: "/projects/" } },
+      sort: {fields: [frontmatter___rank], order: ASC}
     ) {
       edges {
         node {
@@ -272,8 +419,11 @@ export const pageQuery = graphql`
             tech
             github
             external
+            rank
           }
           html
+          fileAbsolutePath
+          excerpt
         }
       }
     }
