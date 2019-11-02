@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
-import { rhythm } from "../../utils/typography"
+import { rhythm } from "../utils/typography"
 
-import { MenuContext } from "../Layout"
+import { MenuContext } from "./Layout"
 
 export default ({ spacing }) => {
   spacing = spacing ? spacing : rhythm(1.4)

@@ -1,11 +1,11 @@
 import React, { useContext } from "react"
 import { css } from "@emotion/core"
 
-import { scale, rhythm } from "../../utils/typography"
-import { MenuContext } from "../Layout"
-import arrowPic from "../../assets/right-arrow.svg"
-import PrimaryLink from "../decorators/PrimaryLink"
-import SmallLogo from "../Logo/SmallLogo"
+import { scale, rhythm } from "../utils/typography"
+import { MenuContext } from "./Layout"
+import arrowPic from "../assets/right-arrow.svg"
+import PrimaryLink from "./decorators/PrimaryLink"
+import SmallLogo from "./Logo/SmallLogo"
 
 const MenuItem = ({ children, to }) => (
   <PrimaryLink
