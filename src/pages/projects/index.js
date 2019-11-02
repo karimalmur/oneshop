@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import Img from 'gatsby-image'
-import { graphql } from "gatsby"
+import { Link, graphql } from "gatsby"
 import { css } from "@emotion/core"
 import styled from "@emotion/styled"
 
@@ -37,11 +37,20 @@ const FeaturedImg = styled(Img)`
 
 const ImgContainer = styled.a`
   ${BoxShadow};
+  display: block;
+  width: 100%;
+  height: auto;
   position: relative;
   z-index: 1;
   background-color: ${props => props.theme.themeAccent};
   border-radius: 3px;
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+  div {
+    width: 100%;
+    height: 100%;
+  }
+
   &:hover,
   &:focus {
     background: transparent;
@@ -103,6 +112,7 @@ const ProjectsContainer = styled.section`
   overflow: hidden;
   flex-grow: 1;
   width: 100%;
+  max-height: 82.5vh;
   position: relative;
 
   @media (min-width: 760px) {
@@ -166,12 +176,12 @@ const ProjectInner = styled.div`
   padding: ${rhythm(.5)};
   border-radius: 3;
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-  background-color: rgba(2, 12, 27, 0.7);
+  background-color: ${props => props.current ? props.theme.primaryHover : "rgba(2, 12, 27, 0.7)"};
   height: 100%;
 
   &:hover {
-    background: rgba(2, 12, 27, 0.9);
-    cursor: ${props => props.active ? "pointer" : "inherit"};
+    background-color: ${props => props.clickable && props.theme.primaryHover};
+    cursor: ${props => props.clickable ? "pointer" : "inherit"};
   }
 `;
 
@@ -241,64 +251,63 @@ const TechList = styled.ul`
   }
 `;
 
-
-const CurrentProjectContext = React.createContext()
-
-const Projects = ({ projects }) => {
-  const { setCurrentProject } = useContext(CurrentProjectContext)
-
+const Projects = ({ projects, currentProject }) => {
   return (
     <ProjectListContainer>
       <ProjectList>
         <ProjectListHeader>Our Projects</ProjectListHeader>
         {projects.map(({ node }, i) => {
-          const { frontmatter, excerpt } = node;
+          const { frontmatter, excerpt, fields } = node;
           const { github, external, title, tech } = frontmatter;
+          const { slug } = fields
+          const path = `/projects${slug}`
+
           return (
-            <Project
-            key={i}
-            tabIndex="0"
-            onClick={() => { setCurrentProject(node) }}
-            >
-              <ProjectInner active>
-                <header>
-                  <ProjectName>{title}</ProjectName>
-                  <Links>
-                    {github && (
-                      <IconLink
-                      href={github}
-                      target="_blank"
-                      rel="nofollow noopener noreferrer"
-                      aria-label="Github Link">
-                        <IconGithub />
-                      </IconLink>
-                    )}
-                    {external && (
-                      <IconLink
-                      href={external}
-                      target="_blank"
-                      rel="nofollow noopener noreferrer"
-                      aria-label="External Link">
-                        <IconExternal />
-                      </IconLink>
-                    )}
-                  </Links>
-                  <ProjectDescription dangerouslySetInnerHTML={{ __html: excerpt }} />
-                </header>
-                <footer
-                  css={css`
-                    background-color: rgba(0, 0, 0, 0.4);
-                    width: 100%;
-                  `}
-                >
-                  <TechList>
-                    {tech.map((tech, i) => (
-                      <li key={i}>{tech}</li>
-                      ))}
-                  </TechList>
-                </footer>
-              </ProjectInner>
-            </Project>
+            <Link to={path}>
+              <Project
+                key={i}
+                tabIndex="0"
+              >
+                <ProjectInner clickable current={node === currentProject}>
+                  <header>
+                    <ProjectName>{title}</ProjectName>
+                    <Links>
+                      {github && (
+                        <IconLink
+                        href={github}
+                        target="_blank"
+                        rel="nofollow noopener noreferrer"
+                        aria-label="Github Link">
+                          <IconGithub />
+                        </IconLink>
+                      )}
+                      {external && (
+                        <IconLink
+                        href={external}
+                        target="_blank"
+                        rel="nofollow noopener noreferrer"
+                        aria-label="External Link">
+                          <IconExternal />
+                        </IconLink>
+                      )}
+                    </Links>
+                    <ProjectDescription dangerouslySetInnerHTML={{ __html: excerpt }} />
+                  </header>
+                  <footer
+                    css={css`
+                      background-color: rgba(0, 0, 0, 0.4);
+                      width: 100%;
+                    `}
+                  >
+                    <TechList>
+                      {tech.map((tech, i) => (
+                        <li key={i}>{tech}</li>
+                        ))}
+                    </TechList>
+                  </footer>
+                </ProjectInner>
+              </Project>
+            </Link>
           );
         })}
       </ProjectList>
@@ -313,9 +322,8 @@ const CurrentProjectContainer = styled.div`
   border-left: none;
 `
 
-const CurrentProject = () => {
-  const { currentProject } = useContext(CurrentProjectContext)
-  const { frontmatter, html } = currentProject
+const CurrentProject = ({ project }) => { 
+  const { frontmatter, html } = project
   const { github, external, title, tech, image } = frontmatter
 
   return (
@@ -370,30 +378,25 @@ const CurrentProject = () => {
 
 const ProjectIndex = ({ data }) => {
   const projects = data["projects"].edges
-  const [currentProject, setCurrentProject] =
-    useState(projects.find(p => p.node.frontmatter.rank === 1).node)
+  const currentProject = projects[0].node
 
   return (
-    <CurrentProjectContext.Provider
-      value={{ currentProject, setCurrentProject }}
-    >
-      <Layout
-        wide
-        burgerSpacing={rhythm(.5)}
+    <Layout
+      wide
+      burgerSpacing={rhythm(.5)}
 
-        css={css`
-          nav {
-            padding-top: ${rhythm(.4)};
-            padding-bottom: ${rhythm(.4)};
-          }
-        `}
-      >
-        <ProjectsContainer>
-          <Projects projects={data["projects"].edges} />
-          <CurrentProject />
-        </ProjectsContainer>
-      </Layout>
-    </CurrentProjectContext.Provider>
+      css={css`
+        nav {
+          padding-top: ${rhythm(.4)};
+          padding-bottom: ${rhythm(.4)};
+        }
+      `}
+    >
+      <ProjectsContainer>
+        <Projects currentProject={currentProject} projects={projects} />
+        <CurrentProject project={currentProject}/>
+      </ProjectsContainer>
+    </Layout>
   )
 }
 
@@ -420,6 +423,9 @@ export const pageQuery = graphql`
             github
             external
             rank
+          }
+          fields {
+            slug
           }
           html
           fileAbsolutePath

@@ -1,14 +1,72 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { graphql } from "gatsby"
+import Img from 'gatsby-image'
+import { Link, graphql } from "gatsby"
 import { css } from "@emotion/core"
 import styled from "@emotion/styled"
 
 import Layout from "../components/Layout"
 import IconGithub from "../components/icons/github"
-import IconFolder from "../components/icons/folder"
 import IconExternal from "../components/icons/external"
-import { scale } from "../utils/typography"
+import { scale, rhythm } from "../utils/typography"
+
+const BoxShadow = css`
+  box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  &:hover,
+  &:focus {
+    box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.7);
+  }
+`
+
+const FeaturedImg = styled(Img)`
+  width: 100%;
+  max-width: 100%;
+  vertical-align: middle;
+  border-radius: 3px;
+  position: relative;
+  mix-blend-mode: multiply;
+  filter: grayscale(100%) contrast(1) brightness(90%);
+  @media (min-width: 760px) {
+    object-fit: cover;
+    width: auto;
+    height: 100%;
+    filter: grayscale(100%) contrast(1) brightness(80%);
+  }
+`
+
+const ImgContainer = styled.a`
+  ${BoxShadow};
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  background-color: ${props => props.theme.themeAccent};
+  border-radius: 3px;
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  &:hover,
+  &:focus {
+    background: transparent;
+    &:before,
+    ${FeaturedImg} {
+      background: transparent;
+      filter: none;
+    }
+  }
+  &:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+    background-color: rgba(2, 12, 27, 0.7);
+    mix-blend-mode: screen;
+  }
+`;
 
 const inlineLink = css`
   display: inline-block;
@@ -40,36 +98,63 @@ const inlineLink = css`
   }
 `
 
-const BoxShadow = css`
-  box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
-  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-  &:hover,
-  &:focus {
-    box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.7);
-  }
-`
-
 const ProjectsContainer = styled.section`
-  margin: 0 auto;
-  padding: 150px 0;
-  max-width: 1000px;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  align-items: flex-start;
+  overflow: hidden;
+  flex-grow: 1;
+  width: 100%;
+  max-height: 82.5vh;
+  position: relative;
+
+  @media (min-width: 760px) {
+    flex-direction: row;
+  }
 `
 
-const ProjectsGrid = styled.div`
-  .projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-gap: 15px;
-    position: relative;
-    @media (min-width: 760px) {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    }
+const ProjectListContainer = styled.div`
+  position: relative;
+  overflow-y: scroll;
+
+  ::-webkit-scrollbar
+  {
+    width: 12px;  /* for vertical scrollbars */
+    height: 12px; /* for horizontal scrollbars */
   }
+
+  ::-webkit-scrollbar-track
+  {
+    background-color: rgba(2, 12, 27, 0.7);
+  }
+
+  ::-webkit-scrollbar-thumb
+  {
+    background: ${props => props.theme.themeColor};
+  }
+
+  border: ${props => `1px solid ${props.theme.themeColor}`};
+  @media (min-width: 850px) {
+    flex: 0 0 300px;
+    margin-top: 0;
+    overflow-y: scroll;
+  }
+`
+
+const ProjectList = styled.div`
+  @media (min-width: 850px) {
+    background-color: rgba(2, 12, 27, 0.7);
+    padding-right: 1px;
+  }
+`
+
+const ProjectListHeader = styled.div`
+  align-items: center;
+  border-bottom: rgba(2, 12, 27, 0.7);
+  display: flex;
+  height: 60px;
+  padding: 0 20px;
+  text-transform: uppercase;
+  font-weight: 700;
 `
 
 const ProjectInner = styled.div`
@@ -80,64 +165,59 @@ const ProjectInner = styled.div`
   flex-direction: column;
   align-items: flex-start;
   position: relative;
-  padding: 2rem 1.75rem;
-  height: 100%;
-  border-radius: 3;
+  padding: ${rhythm(.5)};
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-  background-color: rgba(2, 12, 27, 0.7);
+  background-color: ${props => props.current ? props.theme.primaryHover : "rgba(2, 12, 27, 0.7)"};
+  height: 100%;
+
+  &:hover {
+    background-color: ${props => props.clickable && props.theme.primaryHover};
+    cursor: ${props => props.clickable ? "pointer" : "inherit"};
+  }
 `;
 
 const Project = styled.div`
   cursor: default;
-  &:hover,
-  &:focus {
-    outline: 0;
-    ${ProjectInner} {
-      transform: translateY(-5px);
-    }
-  }
-`;
+  margin-bottom: 2px;
+  display: block;
 
-const ProjectHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 30px;
-`;
-
-const Folder = styled.div`
-  color: ${props => props.theme.themeColor};
-  svg {
-    width: 40px;
-    height: 40px;
+  p:hover {
+    color: #FFF;
   }
 `;
 
 const Links = styled.div`
-  margin-right: -10px;
+  display: inline-block;
+  justify-content: center;
+  margin-left: ${rhythm(.1)};
   color: ${props => props.theme.themeAccent};
 `;
 
 const IconLink = styled.a`
   position: relative;
-  top: -10px;
   padding: 10px;
   svg {
-    width: 20px;
-    height: 20px;
+    width: 12px;
+    height: 12px;
   }
 `;
 
 const ProjectName = styled.h5`
-  margin: 0 0 10px;
+  display: inline-block;
+  margin: ${rhythm(.1)};
   color: ${props => props.theme.themeAccent};
-  ${scale(1.2)}
+  ${scale(.1)}
 `;
 
 const ProjectDescription = styled.div`
-  font-size: 17px;
-  color: ${props => props.theme.themeAccent};
+  ${scale(-.5)};
+  margin: ${rhythm(.2)};
+  color: #FFFB;
   a {
     ${inlineLink}
+  }
+  p {
+    margin: 0;
   }
 `;
 
@@ -146,87 +226,179 @@ const TechList = styled.ul`
   display: flex;
   align-items: flex-end;
   flex-wrap: wrap;
-  margin-top: 20px;
+  margin-top: ${rhythm(.1)};
+  margin-left: ${rhythm(.25)};
+  margin-bottom: 0;
+  list-style: none;
   li {
     color: ${props => props.theme.themeColor};
     line-height: 1.75;
     margin-right: 15px;
+    margin-bottom: ${rhythm(.1)};
     &:last-of-type {
       margin-right: 0;
     }
-    ${scale(0.5)}
+    ${scale(-.5)}
   }
 `;
 
-const Projects = ({ projects }) => (
-  <ProjectsContainer>
-    <ProjectsGrid>
-      {projects.map(({ node }, i) => {
-        const { frontmatter, html } = node;
-        const { github, external, title, tech } = frontmatter;
-        return (
-          <Project
-            key={i}
-            tabIndex="0"
-          >
-            <ProjectInner>
-              <header>
-                <ProjectHeader>
-                  <Folder>
-                    <IconFolder />
-                  </Folder>
-                  <Links>
-                    {github && (
-                      <IconLink
+
+const Projects = ({ projects, currentProject }) => {
+  return (
+    <ProjectListContainer>
+      <ProjectList>
+        <ProjectListHeader>Our Projects</ProjectListHeader>
+        {projects.map(({ node }, i) => {
+          const { frontmatter, excerpt, fields } = node;
+          const { github, external, title, tech } = frontmatter;
+          const { slug } = fields
+          const path = `/projects${slug}`
+
+          return (
+            <Link to={path}>
+              <Project
+                key={i}
+                tabIndex="0"
+              >
+                <ProjectInner clickable current={currentProject === node}>
+                  <header>
+                    <ProjectName>{title}</ProjectName>
+                    <Links>
+                      {github && (
+                        <IconLink
                         href={github}
                         target="_blank"
                         rel="nofollow noopener noreferrer"
                         aria-label="Github Link">
-                        <IconGithub />
-                      </IconLink>
-                    )}
-                    {external && (
-                      <IconLink
+                          <IconGithub />
+                        </IconLink>
+                      )}
+                      {external && (
+                        <IconLink
                         href={external}
                         target="_blank"
                         rel="nofollow noopener noreferrer"
                         aria-label="External Link">
-                        <IconExternal />
-                      </IconLink>
-                    )}
-                  </Links>
-                </ProjectHeader>
-                <ProjectName>{title}</ProjectName>
-                <ProjectDescription dangerouslySetInnerHTML={{ __html: html }} />
-              </header>
-              <footer>
-                <TechList>
-                  {tech.map((tech, i) => (
-                    <li key={i}>{tech}</li>
-                  ))}
-                </TechList>
-              </footer>
-            </ProjectInner>
-          </Project>
-        );
-      })}
-    </ProjectsGrid>
-  </ProjectsContainer>
-)
+                          <IconExternal />
+                        </IconLink>
+                      )}
+                    </Links>
+                    <ProjectDescription dangerouslySetInnerHTML={{ __html: excerpt }} />
+                  </header>
+                  <footer
+                    css={css`
+                      background-color: rgba(0, 0, 0, 0.4);
+                      width: 100%;
+                    `}
+                  >
+                    <TechList>
+                      {tech.map((tech, i) => (
+                        <li key={i}>{tech}</li>
+                        ))}
+                    </TechList>
+                  </footer>
+                </ProjectInner>
+              </Project>
+            </Link>
+          );
+        })}
+      </ProjectList>
+    </ProjectListContainer>
+  )
+}
 
-const ProjectIndex = ({ data }) => (
-  <Layout>
-    {console.log(data)}
-    <Projects projects={data["projects"].edges}/>
-  </Layout>
-)
+const CurrentProjectContainer = styled.div`
+  flex-grow: 1;
+  overflow-y: auto;
+  border: ${props => `1px solid ${props.theme.themeColor}`};
+  border-left: none;
+`
+
+const CurrentProject = ({ project }) => {
+  const { frontmatter, html } = project
+  const { github, external, title, tech, image } = frontmatter
+
+  return (
+    <CurrentProjectContainer>
+      <ProjectInner>
+        <header>
+          <ProjectName>{title}</ProjectName>
+          <Links>
+            {github && (
+              <IconLink
+                href={github}
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                aria-label="Github Link">
+                <IconGithub />
+              </IconLink>
+            )}
+            {external && (
+              <IconLink
+                href={external}
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                aria-label="External Link">
+                <IconExternal />
+              </IconLink>
+            )}
+          </Links>
+          <ProjectDescription dangerouslySetInnerHTML={{ __html: html }} />
+        </header>
+        <ImgContainer
+          href={external ? external : github ? github : '#'}
+          target="_blank"
+          rel="nofollow noopener noreferrer">
+          <FeaturedImg fluid={image.childImageSharp.fluid} />
+        </ImgContainer>
+        <footer
+          css={css`
+            background-color: rgba(0, 0, 0, 0.4);
+            width: 100%;
+          `}
+        >
+          <TechList>
+            {tech.map((tech, i) => (
+              <li key={i}>{tech}</li>
+              ))}
+          </TechList>
+        </footer>
+      </ProjectInner>
+    </CurrentProjectContainer>
+  )
+}
+
+const ProjectIndex = ({ data, path }) => {
+  const projects = data["projects"].edges
+  const currentProject = projects.find(p => p.node.fields.slug === path.split('/projects')[1]).node
+
+  return (
+    <Layout
+      wide
+      burgerSpacing={rhythm(.5)}
+
+      css={css`
+        nav {
+          padding-top: ${rhythm(.4)};
+          padding-bottom: ${rhythm(.4)};
+        }
+      `}
+    >
+      <ProjectsContainer>
+        <Projects currentProject={currentProject} projects={data["projects"].edges} />
+        <CurrentProject project={currentProject}/>
+      </ProjectsContainer>
+    </Layout>
+  )
+}
 
 export default ProjectIndex
 
 export const pageQuery = graphql`
   {
     projects: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/projects/" } }
+      filter: { fileAbsolutePath: { regex: "/projects/" } },
+      sort: {fields: [frontmatter___rank], order: ASC}
     ) {
       edges {
         node {
@@ -242,8 +414,14 @@ export const pageQuery = graphql`
             tech
             github
             external
+            rank
+          }
+          fields {
+            slug
           }
           html
+          fileAbsolutePath
+          excerpt
         }
       }
     }

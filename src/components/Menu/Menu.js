@@ -48,6 +48,7 @@ export default () => {
         transform: menuOpen ? "translateX(0)" : "translateX(-100%)",
         padding: rhythm(1.5),
         position: "absolute",
+        zIndex: 2,
         top: 0,
         left: 0,
         [`@media (max-width: ${theme.mobile})`]: {
