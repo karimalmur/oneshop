@@ -7,7 +7,7 @@ import styled from "@emotion/styled"
 import Layout from "../../components/Layout"
 import IconGithub from "../../components/icons/github"
 import IconExternal from "../../components/icons/external"
-import { scale } from "../../utils/typography"
+import { scale, rhythm } from "../../utils/typography"
 
 const inlineLink = css`
   display: inline-block;
@@ -49,26 +49,58 @@ const BoxShadow = css`
 `
 
 const ProjectsContainer = styled.section`
-  margin: 0 auto;
-  padding: 150px 0;
   max-width: 1000px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row;
+  overflow: hidden;
+  height: 80vh;
+  width: 100%;
+  position: relative;
 `
 
-const ProjectsGrid = styled.div`
-  .projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-gap: 15px;
-    position: relative;
-    @media (min-width: 760px) {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    }
+const ProjectListContainer = styled.div`
+  position: relative;
+  ::-webkit-scrollbar
+  {
+    width: 12px;  /* for vertical scrollbars */
+    height: 12px; /* for horizontal scrollbars */
   }
+
+  ::-webkit-scrollbar-track
+  {
+    background-color: rgba(2, 12, 27, 0.7);
+  }
+
+  ::-webkit-scrollbar-thumb
+  {
+    background: ${props => props.theme.themeColor};
+  }
+
+  border: ${props => `1px solid ${props.theme.themeColor}`};
+  @media (min-width: 850px) {
+    flex: 0 0 300px;
+    margin-top: 0;
+    height: 80vh;
+    overflow-y: scroll;
+  }
+`
+
+const ProjectList = styled.div`
+  height: auto;
+  @media (min-width: 850px) {
+    background-color: rgba(2, 12, 27, 0.7);
+    padding-right: 1px;
+  }
+`
+
+const ProjectListHeader = styled.div`
+  align-items: center;
+  border-bottom: rgba(2, 12, 27, 0.7);
+  display: flex;
+  height: 60px;
+  padding: 0 20px;
+  text-transform: uppercase;
+  font-weight: 700;
 `
 
 const ProjectInner = styled.div`
@@ -79,55 +111,61 @@ const ProjectInner = styled.div`
   flex-direction: column;
   align-items: flex-start;
   position: relative;
-  padding: 2rem 1.75rem;
+  padding: ${rhythm(.5)};
   height: 100%;
   border-radius: 3;
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   background-color: rgba(2, 12, 27, 0.7);
+
+  &:hover {
+    background: rgba(2, 12, 27, 0.9);
+    cursor: pointer;
+  }
 `;
 
 const Project = styled.div`
   cursor: default;
-  &:hover,
-  &:focus {
-    outline: 0;
-    ${ProjectInner} {
-      transform: translateY(-5px);
-    }
+  margin-bottom: 2px;
+  display: block;
+
+  p:hover {
+    color: #FFF;
   }
 `;
 
-const ProjectHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 30px;
-`;
-
 const Links = styled.div`
-  margin-right: -10px;
+  display: inline-block;
+  justify-content: center;
+  margin-left: ${rhythm(.1)};
   color: ${props => props.theme.themeAccent};
 `;
 
 const IconLink = styled.a`
   position: relative;
-  top: -10px;
   padding: 10px;
   svg {
-    width: 20px;
-    height: 20px;
+    width: 12px;
+    height: 12px;
   }
 `;
 
 const ProjectName = styled.h5`
-  margin: 0 0 10px;
+  display: inline-block;
+  margin: ${rhythm(.1)};
+  text-align: center;
   color: ${props => props.theme.themeAccent};
-  ${scale(1.2)}
+  ${scale(.1)}
 `;
 
 const ProjectDescription = styled.div`
-  font-size: 17px;
+  ${scale(-.5)};
+  margin: ${rhythm(.2)};
+  color: #FFFB;
   a {
     ${inlineLink}
+  }
+  p {
+    margin: 0;
   }
 `;
 
@@ -136,13 +174,15 @@ const TechList = styled.ul`
   display: flex;
   align-items: flex-end;
   flex-wrap: wrap;
-  margin-top: 20px;
+  margin-top: ${rhythm(.1)};
+  margin-bottom: 0;
   margin-left: 0;
   list-style: none;
   li {
     color: ${props => props.theme.themeColor};
     line-height: 1.75;
     margin-right: 15px;
+    margin-bottom: ${rhythm(.1)};
     &:last-of-type {
       margin-right: 0;
     }
@@ -152,18 +192,20 @@ const TechList = styled.ul`
 
 const Projects = ({ projects }) => (
   <ProjectsContainer>
-    <ProjectsGrid>
-      {projects.map(({ node }, i) => {
-        const { frontmatter, html } = node;
-        const { github, external, title, tech } = frontmatter;
-        return (
-          <Project
-            key={i}
-            tabIndex="0"
-          >
-            <ProjectInner>
-              <header>
-                <ProjectHeader>
+    <ProjectListContainer>
+      <ProjectList>
+        <ProjectListHeader>Our Projects</ProjectListHeader>
+        {projects.map(({ node }, i) => {
+          const { frontmatter, html } = node;
+          const { github, external, title, tech } = frontmatter;
+          return (
+            <Project
+              key={i}
+              tabIndex="0"
+            >
+              <ProjectInner>
+                <header>
+                  <ProjectName>{title}</ProjectName>
                   <Links>
                     {github && (
                       <IconLink
@@ -184,22 +226,21 @@ const Projects = ({ projects }) => (
                       </IconLink>
                     )}
                   </Links>
-                </ProjectHeader>
-                <ProjectName>{title}</ProjectName>
-                <ProjectDescription dangerouslySetInnerHTML={{ __html: html }} />
-              </header>
-              <footer>
-                <TechList>
-                  {tech.map((tech, i) => (
-                    <li key={i}>{tech}</li>
-                  ))}
-                </TechList>
-              </footer>
-            </ProjectInner>
-          </Project>
-        );
-      })}
-    </ProjectsGrid>
+                  <ProjectDescription dangerouslySetInnerHTML={{ __html: html }} />
+                </header>
+                <footer>
+                  <TechList>
+                    {tech.map((tech, i) => (
+                      <li key={i}>{tech}</li>
+                    ))}
+                  </TechList>
+                </footer>
+              </ProjectInner>
+            </Project>
+          );
+        })}
+      </ProjectList>
+    </ProjectListContainer>
   </ProjectsContainer>
 )
 
