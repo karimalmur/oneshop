@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { css } from "@emotion/core"
+import { graphql } from "gatsby"
 
 import Projects, { ProjectsContext } from "../components/projects"
 import Layout from "../components/Layout"
