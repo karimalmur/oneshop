@@ -1,7 +1,7 @@
 import React from "react"
 
-import { rhythm, scale } from "../../utils/typography"
-import UnderlinedPrimaryLink from "../decorators/UnderlinedPrimaryLink"
+import { rhythm, scale } from "../utils/typography"
+import UnderlinedPrimaryLink from "./decorators/UnderlinedPrimaryLink"
 
 const SmallLogo = (props) => (
   <div

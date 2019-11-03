@@ -4,7 +4,7 @@ import { useMediaQuery } from "react-responsive"
 import { css } from "@emotion/core"
 import styled from "@emotion/styled"
 
-import SmallLogo from "./Logo/SmallLogo"
+import SmallLogo from "./SmallLogo"
 import { rhythm } from "../utils/typography"
 import PrimaryLink from "./decorators/PrimaryLink"
 

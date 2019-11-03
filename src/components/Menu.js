@@ -5,7 +5,7 @@ import { scale, rhythm } from "../utils/typography"
 import { MenuContext } from "./Layout"
 import arrowPic from "../assets/right-arrow.svg"
 import PrimaryLink from "./decorators/PrimaryLink"
-import SmallLogo from "./Logo/SmallLogo"
+import SmallLogo from "./SmallLogo"
 
 const MenuItem = ({ children, to }) => (
   <PrimaryLink
