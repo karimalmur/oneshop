@@ -39,16 +39,16 @@ export default ({ spacing }) => {
           position: "relative",
           transformOrigin: 1,
 
-          ":first-child": {
+          "&:first-of-type": {
             transform: menuOpen ? "rotate(45deg)" : "rotate(0)",
           },
 
-          ":nth-child(2)": {
+          ":nth-of-type(2)": {
             opacity: menuOpen ? 0 : 1,
             transform: menuOpen ? "translateX(20px)" : "translateX(0)",
           },
 
-          ":nth-child(3)": {
+          ":nth-of-type(3)": {
             transform: menuOpen ? "rotate(-45deg)" : "rotate(0)",
           },
         }

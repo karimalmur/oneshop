@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 import PropTypes from "prop-types"
 import { css } from "@emotion/core"
 import styled from "@emotion/styled"
-import { Link } from "gatsby"
+import { navigate } from "gatsby"
 
 import { ProjectsContext } from "./index"
 import {
@@ -79,48 +79,46 @@ const ProjectList = ({ highlightCurrent }) => {
           const path = `/projects${slug}`
 
           return (
-            <Link to={path} key={i} tabIndex="0">
-              <Project>
-                <ProjectInner clickable current={node === currentProject && highlightCurrent}>
-                  <header>
-                    <ProjectName>{title}</ProjectName>
-                    <Links>
-                      {github && (
-                        <IconLink
+            <Project key={i} tabIndex="0" onClick={() => { navigate(path) }}>
+              <ProjectInner clickable current={node === currentProject && highlightCurrent}>
+                <header>
+                  <ProjectName>{title}</ProjectName>
+                  <Links>
+                    {github && (
+                      <IconLink
                         href={github}
                         target="_blank"
                         rel="nofollow noopener noreferrer"
                         aria-label="Github Link">
-                          <IconGithub />
-                        </IconLink>
-                      )}
-                      {external && (
-                        <IconLink
+                        <IconGithub />
+                      </IconLink>
+                    )}
+                    {external && (
+                      <IconLink
                         href={external}
                         target="_blank"
                         rel="nofollow noopener noreferrer"
                         aria-label="External Link">
-                          <IconExternal />
-                        </IconLink>
-                      )}
-                    </Links>
-                    <ProjectDescription dangerouslySetInnerHTML={{ __html: excerpt }} />
-                  </header>
-                  <footer
-                    css={css`
-                      background-color: rgba(0, 0, 0, 0.4);
-                      width: 100%;
-                    `}
-                  >
-                    <TechList>
-                      {tech.map((tech, i) => (
-                        <li key={i}>{tech}</li>
-                        ))}
-                    </TechList>
-                  </footer>
-                </ProjectInner>
-              </Project>
-            </Link>
+                        <IconExternal />
+                      </IconLink>
+                    )}
+                  </Links>
+                  <ProjectDescription dangerouslySetInnerHTML={{ __html: excerpt }} />
+                </header>
+                <footer
+                  css={css`
+                    background-color: rgba(0, 0, 0, 0.4);
+                    width: 100%;
+                  `}
+                >
+                  <TechList>
+                    {tech.map((tech, i) => (
+                      <li key={i}>{tech}</li>
+                      ))}
+                  </TechList>
+                </footer>
+              </ProjectInner>
+            </Project>
           );
         })}
       </List>

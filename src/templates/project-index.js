@@ -15,9 +15,7 @@ const ProjectIndex = ({ data, path }) => {
       value={{ projects, currentProject }}
     >
       <Layout
-        wide
         burgerSpacing={rhythm(.5)}
-
         css={css`
           nav {
             padding-top: ${rhythm(.4)};

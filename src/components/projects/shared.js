@@ -62,18 +62,18 @@ export const ImgContainer = styled.a`
   }
 `;
 
-export const inlineLink = css`
+export const InlineLink = props => css`
   display: inline-block;
   text-decoration: none;
   text-decoration-skip-ink: auto;
   position: relative;
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   cursor: pointer;
-  color: ${props => props.theme.themeColor};
+  color: ${props.theme.themeColor};
   &:hover,
   &:focus,
   &:active {
-    color: ${props => props.theme.themeColor};
+    color: ${props.theme.themeColor};
     outline: 0;
     &:after {
       width: 100%;
@@ -86,7 +86,7 @@ export const inlineLink = css`
     height: 1px;
     position: relative;
     bottom: 0.37em;
-    background-color: ${props => props.theme.themeColor};
+    background-color: ${props.theme.themeColor};
     transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
     opacity: 0.5;
   }
@@ -198,7 +198,7 @@ export const ProjectDescription = styled.div`
   margin: ${rhythm(.2)};
   color: #FFFB;
   a {
-    ${inlineLink}
+    ${props => InlineLink(props)}
   }
   p {
     margin: 0;

@@ -47,13 +47,15 @@ const PermanentlyUnderlinedStyledLink = styled(PrimaryLink)`
   }
 `
 
-const UnderlinedPrimaryLink = (props) => (
-  <>
-    {props.permanent && <PermanentlyUnderlinedStyledLink {...props} />}
-    {!props.permanent && <StyledLink {...props} />}
-  </>
-)
-
+const UnderlinedPrimaryLink = (props) => {
+  const { permanent, ...cssProps } = props
+  return (
+    <>
+      {permanent && <PermanentlyUnderlinedStyledLink {...cssProps} />}
+      {!permanent && <StyledLink {...cssProps} />}
+    </>
+  )
+}
 export default UnderlinedPrimaryLink
 
 UnderlinedPrimaryLink.propTypes = {

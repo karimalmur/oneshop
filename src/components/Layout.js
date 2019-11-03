@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react"
+import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { withPrefix } from "gatsby"
 import { ThemeProvider } from "emotion-theming"
@@ -15,7 +16,7 @@ import Navbar from "./Navbar"
 export const MenuContext = React.createContext()
 
 const TemplateWrapper = (props) => {
-  const { children, burgerSpacing } = props
+  const { children, burgerSpacing, ...cssProps } = props
   const { title, description } = useSiteMetadata()
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -72,7 +73,7 @@ const TemplateWrapper = (props) => {
             min-height: 100%;
             flex-direction: column;
           `}
-          {...props}
+          {...cssProps}
         >
           <div
             css={css`
@@ -114,6 +115,10 @@ const TemplateWrapper = (props) => {
       </ThemeProvider>
     </MenuContext.Provider>
   )
+}
+
+TemplateWrapper.propTypes = {
+  burgerSpacing: PropTypes.string,
 }
 
 export default TemplateWrapper
