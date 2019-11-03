@@ -5,6 +5,7 @@ import css from '@emotion/css'
 
 import Layout from '../../components/Layout'
 import { rhythm, scale } from '../../utils/typography'
+import SEO from '../../components/seo'
 
 const InputItem = styled.div`
   width: 80%;
@@ -181,6 +182,7 @@ export default class Index extends React.Component {
           text-align: center;
         `}
       >
+        <SEO title="Hire Us"/>
         <section
           css={css`
             max-width: 960px;

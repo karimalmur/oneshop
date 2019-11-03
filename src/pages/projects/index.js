@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { graphql } from "gatsby"
+import { graphql, StaticQuery } from "gatsby"
 import { css } from "@emotion/core"
 
 import Projects, { ProjectsContext } from "../../components/projects"
@@ -30,42 +30,6 @@ const ProjectIndex = ({ data }) => {
   )
 }
 
-export default ProjectIndex
-
-export const pageQuery = graphql`
-  {
-    projects: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/projects/" } },
-      sort: {fields: [frontmatter___rank], order: ASC}
-    ) {
-      edges {
-        node {
-          frontmatter {
-            title
-            image {
-              childImageSharp {
-                fluid(maxWidth: 2048, quality: 100) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
-            tech
-            github
-            external
-            rank
-          }
-          fields {
-            slug
-          }
-          html
-          fileAbsolutePath
-          excerpt
-        }
-      }
-    }
-  }
-`
-
 ProjectIndex.propTypes = {
   data: PropTypes.shape({
     markdownRemark: PropTypes.shape({
@@ -73,3 +37,43 @@ ProjectIndex.propTypes = {
     })
   })
 }
+
+export default (props) => (
+
+  <StaticQuery
+    query = {graphql`
+      {
+        projects: allMarkdownRemark(
+          filter: { fileAbsolutePath: { regex: "/projects/" } },
+          sort: {fields: [frontmatter___rank], order: ASC}
+        ) {
+          edges {
+            node {
+              frontmatter {
+                title
+                image {
+                  childImageSharp {
+                    fluid(maxWidth: 2048, quality: 100) {
+                      ...GatsbyImageSharpFluid
+                    }
+                  }
+                }
+                tech
+                github
+                external
+                rank
+              }
+              fields {
+                slug
+              }
+              html
+              fileAbsolutePath
+              excerpt
+            }
+          }
+        }
+      }
+    `}
+    render={(data) => <ProjectIndex data={data} {...props}/>}
+  />
+)

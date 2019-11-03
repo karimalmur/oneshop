@@ -3,6 +3,7 @@ module.exports = {
     title: "OneShop",
     description:
         "Software development solutions. From developer tools to quality fullstack web & mobile apps.",
+    author: 'Karim Almur',
   },
   plugins: [
     'gatsby-plugin-react-helmet',

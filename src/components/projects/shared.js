@@ -17,7 +17,6 @@ export const FeaturedImg = styled(Img)`
   width: 100%;
   max-width: 100%;
   vertical-align: middle;
-  border-radius: 3px;
   position: relative;
   mix-blend-mode: multiply;
   filter: grayscale(100%) contrast(1) brightness(90%);
@@ -35,7 +34,6 @@ export const ImgContainer = styled.a`
   position: relative;
   z-index: 1;
   background-color: ${props => props.theme.themeAccent};
-  border-radius: 3px;
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   &:hover,
   &:focus {

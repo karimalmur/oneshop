@@ -9,7 +9,8 @@ import { rhythm } from "../utils/typography"
 
 const ProjectIndex = ({ data, path }) => {
   const projects = data["projects"].edges
-  const currentProject = projects.find(p => p.node.fields.slug === path.split('/projects')[1]).node
+  const matchingProject = projects.find(p => p.node.fields.slug === path.split('/projects')[1])
+  const currentProject = matchingProject ? matchingProject.node : projects[0].node
 
   return (
     <ProjectsContext.Provider

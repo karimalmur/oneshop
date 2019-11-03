@@ -5,6 +5,7 @@ import { css } from "@emotion/core"
 
 import Layout from '../components/Layout'
 import Content, { HTMLContent } from '../components/Content'
+import SEO from '../components/seo'
 
 export const AboutPageTemplate = ({ title, content, contentComponent }) => {
   const PageContent = contentComponent || Content
@@ -40,6 +41,7 @@ const AboutPage = ({ data }) => {
         text-align: center;
       `}
     >
+      <SEO title="About Us"/>
       <AboutPageTemplate
         contentComponent={HTMLContent}
         title={post.frontmatter.title}
