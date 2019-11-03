@@ -5,6 +5,7 @@
 @value secondaryDark: #010111;
 @value textNormal: rgb(217, 217, 217);
 @value black: #000;
+@value gray: #555;
 
 :global #___gatsby {
   height: 100%;

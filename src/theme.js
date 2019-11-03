@@ -1,12 +1,8 @@
 import style from "./styles/global.module.css"
 
-const themeColor = style.themeColor
-const themeAccent = style.themeAccent
-const primaryLight = style.primaryLight
-const primaryHover = style.primaryHover
-const secondaryDark = style.secondaryDark
-const textNormal = style.textNormal
-const black = style.black
+const {
+  themeColor, themeAccent, primaryLight, primaryHover,
+  secondaryDark, textNormal, black, gray } = style
 
 const Theme = {
   backgroundColor: black,
@@ -18,7 +14,8 @@ const Theme = {
   activeLink: themeColor,
   link: textNormal,
   mobile: '576px',
-  secondaryDark
+  secondaryDark,
+  gray,
 }
 
 export default Theme
