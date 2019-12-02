@@ -7,7 +7,7 @@ rank: 6
 tech:
   - Gatsby
   - Netlify CMS
-templateKey: 'project-index'
+templateKey: 'project'
 type: 'project'
 ---
 

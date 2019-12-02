@@ -6,7 +6,7 @@ external: 'https://www.imgix.com/'
 rank: 7
 tech:
   - Rust
-templateKey: 'project-index'
+templateKey: 'project'
 type: 'project'
 ---
 

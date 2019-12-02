@@ -6,7 +6,7 @@ external: 'https://github.com/karimit/sepak'
 rank: 4
 tech:
   - OpenGL
-templateKey: 'project-index'
+templateKey: 'project'
 type: 'project'
 ---
 

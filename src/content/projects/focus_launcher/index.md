@@ -6,7 +6,7 @@ external: 'https://www.androidcentral.com/best-android-launchers'
 rank: 1
 tech:
   - Kotlin
-templateKey: 'project-index'
+templateKey: 'project'
 type: 'project'
 ---
 

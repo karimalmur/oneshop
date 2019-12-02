@@ -6,7 +6,7 @@ external: 'https://github.com/karimit/ruog'
 rank: 3
 tech:
   - Rust
-templateKey: 'project-index'
+templateKey: 'project'
 type: 'project'
 ---
 

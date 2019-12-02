@@ -7,7 +7,7 @@ rank: 11
 tech:
   - Kotlin
   - WPF
-templateKey: 'project-index'
+templateKey: 'project'
 type: 'project'
 ---
 

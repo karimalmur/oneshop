@@ -7,7 +7,7 @@ rank: 9
 tech:
   - ASP.Net Core
   - React
-templateKey: 'project-index'
+templateKey: 'project'
 type: 'project'
 ---
 

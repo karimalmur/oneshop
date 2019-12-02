@@ -1,5 +1,5 @@
 ---
-templateKey: 'about-page'
+templateKey: 'about'
 path: /about
 title: About OneShop.
 ---

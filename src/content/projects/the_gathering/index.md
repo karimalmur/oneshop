@@ -8,7 +8,7 @@ tech:
   - ASP.Net Core
   - React
   - Kotlin
-templateKey: 'project-index'
+templateKey: 'project'
 type: 'project'
 ---
 

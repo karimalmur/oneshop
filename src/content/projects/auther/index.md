@@ -6,7 +6,7 @@ external: 'https://devise-token-auth.gitbook.io/devise-token-auth/'
 rank: 10
 tech:
   - Ruby
-templateKey: 'project-index'
+templateKey: 'project'
 type: 'project'
 ---
 

@@ -6,7 +6,7 @@ external: 'https://github.com/karimit/psy'
 rank: 2
 tech:
   - Rust
-templateKey: 'project-index'
+templateKey: 'project'
 type: 'project'
 ---
 
