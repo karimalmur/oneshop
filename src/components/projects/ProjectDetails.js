@@ -15,6 +15,22 @@ const CurrentProjectContainer = styled.div`
   overflow-y: auto;
   border: ${props => `1px solid ${props.theme.themeColor}`};
   border-left: none;
+
+  ::-webkit-scrollbar
+  {
+    width: 12px;  /* for vertical scrollbars */
+    height: 12px; /* for horizontal scrollbars */
+  }
+
+  ::-webkit-scrollbar-track
+  {
+    background-color: rgba(2, 12, 27, 0.7);
+  }
+
+  ::-webkit-scrollbar-thumb
+  {
+    background: ${props => props.theme.themeColor};
+  }
 `
 
 const ProjectDetails = () => {
